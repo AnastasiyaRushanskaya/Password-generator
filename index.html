@@ -12,15 +12,14 @@
     <div class="header-h1 py-3">
       <h1>Password Generator</h1>
     </div>
-
-    <div class="container">
+    <div class="container main-content">
       <div class="row justify-content-center">
         <form
           class="row my-3 form-switch align-items-center col-md-9"
           name="checkboxform"
           id="form"
         >
-          <div class="col-md-6 my-3 input-label-box numbersBox">
+          <div class="col-md-6 my-3 input-label-box">
             <label class="form-check-label" for="flexSwitchCheckDefault1">
               Numbers
             </label>
@@ -51,12 +50,12 @@
               Uppercase letters
             </label>
             <input
-              name="uppercaseletters"
+              name="uppercaseLetters"
               class="form-check-input"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault3"
-              value="uppercaseletters"
+              value="uppercaseLetters"
             />
           </div>
           <div class="col-md-6 my-3 input-label-box">
@@ -64,36 +63,36 @@
               Lowercase letters
             </label>
             <input
-              name="lowercaseletters"
+              name="lowercaseLetters"
               class="form-check-input"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault4"
-              value="lowecaseletters"
+              value="lowecaseLetters"
             />
           </div>
-          <div class="col-md-6">Password length: (from 1 to 20)</div>
           <div class="col-md-6">
+            <label for="passwordLength">Password length: (from 1 to 20)</label>
+          </div>
+          <div class="my-3 col-md-6 py-1">
             <input
               name="passwordLength"
+              id="passwordLength"
               type="number"
-              min="1"
+              min="4"
               max="20"
-              class="my-3 form-control passwordLength"
               value="7"
+              class="form-control"
             />
           </div>
           <div class="row justify-content-center text-center">
-            <button
-              type="submit"
-              class="btn btn-secondary my-3 submitButton col-md-6"
-            >
+            <button type="submit" class="btn btn-light my-3 col-md-6">
               generate password
             </button>
           </div>
           <div class="row justify-content-center text-center">
             <div id="password" class="py-1 yourpassword my-3 col-md-6">
-              <span>Your Password</span>
+              <span>your password</span>
             </div>
           </div>
           <div class="text-end col-md-9">
@@ -101,7 +100,7 @@
               id="buttoncopy"
               type="button"
               class="btn-clipboard"
-              title="Копировать в буфер обмена"
+              title="Copy to clipboard"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +128,9 @@
               >
                 <path
                   fill-rule="evenodd"
-                  d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+                  d="M10.854 7.146a.5.5 0 0 1 0 .708l-3
+                3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5
+                9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
                 />
                 <path
                   d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
@@ -141,8 +142,50 @@
             </button>
           </div>
         </form>
+        <div class="row col-md-9 saveBox">
+          <div class="col-md-6 py-3 savePasswordBox d-none">
+            Do you want to save this password?
+          </div>
+          <div class="form-check py-3 col-md-3 savePasswordBox d-none">
+            <input type="radio" name="radio" id="yes" />
+            <label class="form-check-label" for="yes">yes</label>
+          </div>
+          <div class="form-check py-3 col-md-3 savePasswordBox d-none text-end">
+            <input type="radio" name="radio" id="no" />
+            <label class="form-check-label" for="no">no</label>
+          </div>
+
+          <div class="my-3 col-md-6 d-none siteNameBox">
+            <input
+              name="siteName"
+              value="www.facebook.com"
+              id="siteName"
+              type="text"
+              class="siteName form-control"
+            />
+
+            <div id="validationFeedback" class="invalid-feedback"></div>
+          </div>
+
+          <div class="text-center col-md-6 d-none siteNameBox">
+            <button type="button" class="btn btn-outline-primary my-3">
+              save password
+            </button>
+          </div>
+          <div
+            class="row justify-content-center text-center my-3 d-none"
+            id="viewSavedPassowrds"
+          >
+            <button type="submit" class="btn btn-light col-md-6 my-3">
+              view saved passwords
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+    <footer class="my-2 text-center border-top text-muted">
+      <p class="py-1">© 2022 All Rights Reserved. Anastasiya Rushanskaia</p>
+    </footer>
     <script src="index.js"></script>
   </body>
 </html>

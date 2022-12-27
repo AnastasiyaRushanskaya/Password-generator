@@ -9,8 +9,8 @@ function submitPasswordGenerator(event) {
 
   let numbers = formData.get('numbers');
   let symbols = formData.get('symbols');
-  let uppercaseLetters = formData.get('uppercaseletters');
-  let lowercaseLetters = formData.get('lowercaseletters');
+  let uppercaseLetters = formData.get('uppercaseLetters');
+  let lowercaseLetters = formData.get('lowercaseLetters');
   let passwordLength = formData.get('passwordLength');
 
   if (!numbers && !symbols && !uppercaseLetters && !lowercaseLetters) {
@@ -18,199 +18,60 @@ function submitPasswordGenerator(event) {
     return;
   }
 
-  let generatedArr = generatePasswordArr(
-    numbers,
-    symbols,
-    uppercaseLetters,
-    lowercaseLetters
-  );
-
-  let password = generatePassword(passwordLength, generatedArr);
+  let generatedArr = generatePasswordArr(formData);
+  let password;
+  do {
+    password = generatePassword(passwordLength, generatedArr);
+    console.log(password);
+  } while (checkPassword(formData, password));
 
   showPassword(password);
+  clearCopyButton();
+  showSavePasswordBox();
 }
 
 function showError() {
   document.querySelector('.yourpassword').innerHTML =
     'choose at least one option';
   document.querySelector('.yourpassword').classList.add('error');
+  clearCopyButton();
 }
 
-function generatePasswordArr(
-  numbers,
-  symbols,
-  uppercaseLetters,
-  lowercaseLetters
-) {
-  let arrNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  let arrLowercase = [
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z',
-  ];
-  let arrUppercase = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-  ];
-  let arrSymbols = ['!', '#', '@', '$', '%', '-', '+', '?', '='];
-
+function generatePasswordArr(formData) {
   let passwordArr = [];
 
-  if (numbers) {
-    passwordArr = passwordArr.concat(arrNumbers);
-  }
-  if (symbols) {
-    passwordArr = passwordArr.concat(arrSymbols);
-  }
-  if (uppercaseLetters) {
-    passwordArr = passwordArr.concat(arrUppercase);
-  }
-  if (lowercaseLetters) {
-    passwordArr = passwordArr.concat(arrLowercase);
+  let objValues = {
+    numbers() {
+      for (let i = 48; i < 58; i++) {
+        passwordArr.push(String.fromCodePoint(i));
+      }
+    },
+    symbols() {
+      for (let i = 33; i < 48; i++) {
+        passwordArr.push(String.fromCodePoint(i));
+      }
+    },
+    uppercaseLetters() {
+      for (let i = 65; i < 91; i++) {
+        passwordArr.push(String.fromCodePoint(i));
+      }
+    },
+    lowercaseLetters() {
+      for (let i = 97; i < 123; i++) {
+        passwordArr.push(String.fromCodePoint(i));
+      }
+    },
+  };
+
+  for (let [key, value] of formData.entries()) {
+    if (value && key !== 'passwordLength') {
+      objValues[key]();
+    }
   }
 
   let compareRandom = () => Math.random() - 0.5;
 
   passwordArr.sort(compareRandom);
-
-  return passwordArr;
-}
-
-function showError() {
-  document.querySelector('.yourpassword').innerHTML =
-    'choose at least one option';
-  document.querySelector('.yourpassword').classList.add('error');
-}
-
-function generatePasswordArr(
-  numbers,
-  symbols,
-  uppercaseLetters,
-  lowercaseLetters
-) {
-  let arrNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  let arrLowercase = [
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z',
-  ];
-  let arrUppercase = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-  ];
-  let arrSymbols = ['!', '#', '@', '$', '%', '-', '+', '?', '='];
-
-  let passwordArr = [];
-
-  if (numbers) {
-    passwordArr = passwordArr.concat(arrNumbers);
-  }
-  if (symbols) {
-    passwordArr = passwordArr.concat(arrSymbols);
-  }
-  if (uppercaseLetters) {
-    passwordArr = passwordArr.concat(arrUppercase);
-  }
-  if (lowercaseLetters) {
-    passwordArr = passwordArr.concat(arrLowercase);
-  }
-
-  let compareRandom = () => Math.random() - 0.5;
-
-  passwordArr.sort(compareRandom);
-
   return passwordArr;
 }
 
@@ -222,6 +83,31 @@ function generatePassword(passwordLength, generatedArr) {
     password += generatedArr[randomInteger(0, generatedArr.length - 1)];
   }
   return password;
+}
+
+function checkPassword(formData, password) {
+  let values = {
+    numbers() {
+      return /\d/.test(password);
+    },
+    uppercaseLetters() {
+      return /[A-Z]/.test(password);
+    },
+    lowercaseLetters() {
+      return /[a-z]/.test(password);
+    },
+    symbols() {
+      return /[!"#$%&'()*+,-./]/.test(password);
+    },
+  };
+  let checkValues = [];
+  for (let [key, value] of formData.entries()) {
+    if (value && key !== 'passwordLength') {
+      checkValues.push(values[key]());
+    }
+  }
+
+  return checkValues.includes(false);
 }
 
 function showPassword(password) {
@@ -249,13 +135,20 @@ function copyToClipboard() {
 }
 
 function changeImg() {
-  let svg2 = document.querySelector('.bi-clipboard-check');
-  let svg1 = document.querySelector('.bi-clipboard');
-  svg1.classList.toggle('d-none');
-  svg2.classList.toggle('d-none');
+  let svgActive = document.querySelector('.bi-clipboard-check');
+  let svgPassive = document.querySelector('.bi-clipboard');
+  svgPassive.classList.add('d-none');
+  svgActive.classList.remove('d-none');
 }
 
-function hightlightSelection() {
+function clearCopyButton() {
+  let svgActive = document.querySelector('.bi-clipboard-check');
+  let svgPassive = document.querySelector('.bi-clipboard');
+  svgActive.classList.add('d-none');
+  svgPassive.classList.remove('d-none');
+}
+
+function highlightSelection() {
   let inputs = document.querySelectorAll('.form-check-input');
 
   for (let input of inputs) {
@@ -265,4 +158,64 @@ function hightlightSelection() {
   }
 }
 
-hightlightSelection();
+highlightSelection();
+
+document
+  .querySelector('.siteName')
+  .addEventListener('click', clearSiteNameInput);
+
+function clearSiteNameInput() {
+  document.querySelector('.siteName').value = '';
+}
+
+function showSavePasswordBox() {
+  let savePasswordBox = document.querySelectorAll('.savePasswordBox');
+  for (let elem of savePasswordBox) {
+    elem.classList.remove('d-none');
+  }
+}
+
+document.getElementById('yes').addEventListener('input', showSiteNameBox);
+
+function showSiteNameBox() {
+  let showSiteNameBox = document.querySelectorAll('.siteNameBox');
+  for (let elem of showSiteNameBox) {
+    elem.classList.remove('d-none');
+  }
+  showSavedPasswordsButton();
+}
+
+document.getElementById('no').addEventListener('input', hideSiteNameBox);
+
+function hideSiteNameBox() {
+  let showSiteNameBox = document.querySelectorAll('.siteNameBox');
+  for (let elem of showSiteNameBox) {
+    elem.classList.add('d-none');
+  }
+  showSavedPasswordsButton();
+}
+
+function showSavedPasswordsButton() {
+  document.getElementById('viewSavedPassowrds').classList.remove('d-none');
+}
+
+document
+  .getElementById('siteName')
+  .addEventListener('change', checkSiteNameBox);
+
+function checkSiteNameBox() {
+  let siteNameInput = document.getElementById('siteName');
+  if (!/^www.\w+\.\w+$/.test(siteNameInput.value)) showSiteNameBoxError();
+}
+
+function showSiteNameBoxError() {
+  clearError();
+  document.getElementById('siteName').classList.add('is-invalid');
+  document.querySelector('.invalid-feedback').innerHTML =
+    'Please type correct site name';
+}
+
+function clearError() {
+  document.getElementById('siteName').classList.remove('is-invalid');
+  document.querySelector('.invalid-feedback').innerHTML = '';
+}
