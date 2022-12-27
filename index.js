@@ -22,12 +22,13 @@ function submitPasswordGenerator(event) {
   let password;
   do {
     password = generatePassword(passwordLength, generatedArr);
-    console.log(password);
   } while (checkPassword(formData, password));
 
   showPassword(password);
   clearCopyButton();
   showSavePasswordBox();
+  clearYesNoSelection();
+  hideSiteNameBox();
 }
 
 function showError() {
@@ -160,14 +161,6 @@ function highlightSelection() {
 
 highlightSelection();
 
-document
-  .querySelector('.siteName')
-  .addEventListener('click', clearSiteNameInput);
-
-function clearSiteNameInput() {
-  document.querySelector('.siteName').value = '';
-}
-
 function showSavePasswordBox() {
   let savePasswordBox = document.querySelectorAll('.savePasswordBox');
   for (let elem of savePasswordBox) {
@@ -199,23 +192,36 @@ function showSavedPasswordsButton() {
   document.getElementById('viewSavedPassowrds').classList.remove('d-none');
 }
 
-document
-  .getElementById('siteName')
-  .addEventListener('change', checkSiteNameBox);
-
-function checkSiteNameBox() {
-  let siteNameInput = document.getElementById('siteName');
-  if (!/^www.\w+\.\w+$/.test(siteNameInput.value)) showSiteNameBoxError();
+function clearYesNoSelection() {
+  document.getElementById('no').checked = false;
+  document.getElementById('yes').checked = false;
 }
 
-function showSiteNameBoxError() {
-  clearError();
-  document.getElementById('siteName').classList.add('is-invalid');
-  document.querySelector('.invalid-feedback').innerHTML =
-    'Please type correct site name';
-}
+document.querySelector('.savePassword').addEventListener('click', savePassword);
 
-function clearError() {
-  document.getElementById('siteName').classList.remove('is-invalid');
-  document.querySelector('.invalid-feedback').innerHTML = '';
+function savePassword() {
+  let passwordData = {
+    password: `${document.getElementById('password').innerHTML}`,
+    siteName: ` ${document.getElementById('siteName').value}`,
+    date: new Date(),
+  };
+
+  let historyArray = localStorage.getItem('history')
+    ? JSON.parse(localStorage.getItem('history'))
+    : [];
+  localStorage.clear();
+  historyArray.push(passwordData);
+  let jsonArray = JSON.stringify(historyArray);
+  localStorage.setItem('history', jsonArray);
+
+  for (let i of historyArray) {
+    let historyInfo = document.createElement('div');
+    historyInfo.innerHTML = `${i.password} : ${i.siteName} : ${new Date(
+      i.date
+    )}`;
+    let div = document.getElementById('passwordHistory');
+    console.log(div.innerHTML);
+    div.append(historyInfo);
+    console.log(i.password + ' : ' + i.siteName + ' : ' + new Date(i.date));
+  }
 }

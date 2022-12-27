@@ -158,7 +158,7 @@
           <div class="my-3 col-md-6 d-none siteNameBox">
             <input
               name="siteName"
-              value="www.facebook.com"
+              placeholder="www.facebook.com"
               id="siteName"
               type="text"
               class="siteName form-control"
@@ -168,7 +168,10 @@
           </div>
 
           <div class="text-center col-md-6 d-none siteNameBox">
-            <button type="button" class="btn btn-outline-primary my-3">
+            <button
+              type="button"
+              class="btn btn-outline-primary my-3 savePassword"
+            >
               save password
             </button>
           </div>
@@ -176,9 +179,11 @@
             class="row justify-content-center text-center my-3 d-none"
             id="viewSavedPassowrds"
           >
-            <button type="submit" class="btn btn-light col-md-6 my-3">
-              view saved passwords
-            </button>
+            <form action="index2.html">
+              <button type="submit" class="btn btn-light col-md-6 my-3">
+                view saved passwords
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -186,6 +191,7 @@
     <footer class="my-2 text-center border-top text-muted">
       <p class="py-1">© 2022 All Rights Reserved. Anastasiya Rushanskaia</p>
     </footer>
+
     <script src="index.js"></script>
   </body>
 </html>

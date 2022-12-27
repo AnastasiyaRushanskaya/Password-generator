@@ -115,7 +115,7 @@ footer {
 #viewSavedPassowrds {
   overflow: hidden;
   opacity: 0;
-  animation: animation 2s forwards;
+  animation: animation 1s forwards;
 }
 
 @keyframes animation {
@@ -130,8 +130,4 @@ footer {
 
 .btn-light {
   border: 1px solid var(--color-primary-2);
-}
-
-.siteName {
-  color: var(--color-primary-2);
 }
