@@ -9,9 +9,42 @@
     <title>Password Generator</title>
   </head>
   <body>
-    <div class="header-h1 py-3">
-      <h1>Password Generator</h1>
-    </div>
+    <nav class="navbar navbar-expand-lg bg-light borderBottomCol2">
+      <div class="container-fluid">
+        <div class="col-md-3"></div>
+        <div class="header-h1 py-3 col-md-6">
+          <h1>PASSWORD GENERATOR</h1>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Переключатель навигации"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                <span class="borderBottomCol1">Main page</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index2.html">
+                <span>History</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="container main-content">
       <div class="row justify-content-center">
         <form
@@ -71,8 +104,8 @@
               value="lowecaseLetters"
             />
           </div>
-          <div class="col-md-6">
-            <label for="passwordLength">Password length: (from 1 to 20)</label>
+          <div class="col-md-6 my-3">
+            <label for="passwordLength">Password length (from 1 to 20):</label>
           </div>
           <div class="my-3 col-md-6 py-1">
             <input
@@ -85,17 +118,17 @@
               class="form-control"
             />
           </div>
-          <div class="row justify-content-center text-center">
+          <div class="text-center">
             <button type="submit" class="btn btn-light my-3 col-md-6">
               generate password
             </button>
           </div>
-          <div class="row justify-content-center text-center">
-            <div id="password" class="py-1 yourpassword my-3 col-md-6">
+          <div class="text-center">
+            <div id="password" class="py-1 yourpassword my-3 borderBottomCol1">
               <span>your password</span>
             </div>
           </div>
-          <div class="text-end col-md-9">
+          <div class="text-end">
             <button
               id="buttoncopy"
               type="button"
@@ -142,15 +175,15 @@
             </button>
           </div>
         </form>
-        <div class="row col-md-9 saveBox">
+        <div class="row col-md-9 mt-3">
           <div class="col-md-6 py-3 savePasswordBox d-none">
             Do you want to save this password?
           </div>
-          <div class="form-check py-3 col-md-3 savePasswordBox d-none">
+          <div class="form-check py-3 col-md-3 col-sm-6 savePasswordBox d-none">
             <input type="radio" name="radio" id="yes" />
             <label class="form-check-label" for="yes">yes</label>
           </div>
-          <div class="form-check py-3 col-md-3 savePasswordBox d-none text-end">
+          <div class="form-check py-3 col-md-3 col-sm-6 savePasswordBox d-none">
             <input type="radio" name="radio" id="no" />
             <label class="form-check-label" for="no">no</label>
           </div>
@@ -170,17 +203,22 @@
           <div class="text-center col-md-6 d-none siteNameBox">
             <button
               type="button"
-              class="btn btn-outline-primary my-3 savePassword"
+              class="btn btn-primary my-3 hide savePassword"
             >
               save password
             </button>
+            <button
+              type="button"
+              class="btn btn-success my-3 display savePassword d-none text-center"
+              disabled
+            >
+              saved successfully
+            </button>
           </div>
-          <div
-            class="row justify-content-center text-center my-3 d-none"
-            id="viewSavedPassowrds"
-          >
+
+          <div class="text-center my-3 d-none" id="viewSavedPassowrds">
             <form action="index2.html">
-              <button type="submit" class="btn btn-light col-md-6 my-3">
+              <button type="submit" class="btn btn-light col-md-6">
                 view saved passwords
               </button>
             </form>
@@ -188,10 +226,12 @@
         </div>
       </div>
     </div>
-    <footer class="my-2 text-center border-top text-muted">
-      <p class="py-1">© 2022 All Rights Reserved. Anastasiya Rushanskaia</p>
+    <footer class="my-2 text-center border-top text-muted footer">
+      <p class="py-1">
+        Password Generator 2022. All Rights Reserved. Anastasiya Rushanskaia
+      </p>
     </footer>
-
+    <script src="bootstrap.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

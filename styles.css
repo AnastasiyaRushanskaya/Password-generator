@@ -1,6 +1,7 @@
 :root {
   --color-primary-1: #0d6efd;
   --color-primary-2: #ced4da;
+  --color-primary-3: #a5a4a4;
 }
 html {
   height: 100%;
@@ -9,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  font-size: 12px;
 }
 
 header {
@@ -20,41 +22,17 @@ header {
 footer {
   flex: 0 0 auto;
 }
+
 .header-h1 {
   position: relative;
   text-align: center;
-  margin-bottom: 0.5rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: var(--color-primary-3);
 }
 .header-h1 h1 {
-  position: relative;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-bottom: 0.125rem solid var(--color-primary-1);
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.25);
+  font-size: 1.2rem;
+  margin-bottom: 0px;
 }
-.header-h1 h1::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -1.25rem;
-  transform: translateX(-1.25rem);
-  border-top: 1.25rem solid var(--color-primary-1);
-  border-left: 1.25rem solid transparent;
-  border-right: 1.25rem solid transparent;
-}
-.header-h1 h1::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -1.125rem;
-  transform: translateX(-1.25rem);
-  border-top: 1.25rem solid #fff;
-  border-left: 1.25rem solid transparent;
-  border-right: 1.25rem solid transparent;
-}
-
 .btn-clipboard {
   border: 0;
   background-color: #fff;
@@ -65,9 +43,11 @@ footer {
   border-left: 0.125rem solid var(--color-primary-2);
 }
 
-.input-label-box:hover {
+.input-label-box:hover,
+.selecteditem {
   border-left: 0.125rem solid var(--color-primary-1);
 }
+
 .form-switch {
   padding-left: 12px;
 }
@@ -75,10 +55,6 @@ footer {
 .form-check-input {
   position: absolute;
   right: 12px;
-}
-
-.yourpassword {
-  border-bottom: 1px solid var(--color-primary-1);
 }
 
 .error {
@@ -90,23 +66,11 @@ footer {
   stroke: var(--color-primary-1);
 }
 
-.selecteditem {
-  border-left: 0.125rem solid var(--color-primary-1);
-}
-
-.footer {
-  flex: 0 0 auto;
-}
-
 .btn-primary {
   color: #fff;
 }
 
-.saveBox {
-  margin-top: 55px;
-}
-
-.savePasswordBox {
+.boarderTop {
   border-top: 1px solid var(--color-primary-2);
 }
 
@@ -130,4 +94,20 @@ footer {
 
 .btn-light {
   border: 1px solid var(--color-primary-2);
+}
+
+.borderBottomCol2 {
+  border-bottom: 1px solid var(--color-primary-2);
+}
+
+.tdPadding {
+  padding: 10px;
+}
+
+.savePassword {
+  min-width: 188px;
+}
+
+.borderBottomCol1 {
+  border-bottom: 1px solid var(--color-primary-1);
 }

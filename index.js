@@ -35,6 +35,7 @@ function showError() {
   document.querySelector('.yourpassword').innerHTML =
     'choose at least one option';
   document.querySelector('.yourpassword').classList.add('error');
+  document.querySelector('.yourpassword').classList.remove('borderBottomCol1');
   clearCopyButton();
 }
 
@@ -113,6 +114,7 @@ function checkPassword(formData, password) {
 
 function showPassword(password) {
   document.querySelector('.yourpassword').classList.remove('error');
+  document.querySelector('.yourpassword').classList.add('borderBottomCol1');
   document.querySelector('.yourpassword').innerHTML = password;
 }
 
@@ -166,6 +168,7 @@ function showSavePasswordBox() {
   for (let elem of savePasswordBox) {
     elem.classList.remove('d-none');
   }
+  document.querySelector('.saveBox').classList.add('boarderTop');
 }
 
 document.getElementById('yes').addEventListener('input', showSiteNameBox);
@@ -200,9 +203,10 @@ function clearYesNoSelection() {
 document.querySelector('.savePassword').addEventListener('click', savePassword);
 
 function savePassword() {
+  changeSavePasswordButton();
   let passwordData = {
     password: `${document.getElementById('password').innerHTML}`,
-    siteName: ` ${document.getElementById('siteName').value}`,
+    siteName: `${document.getElementById('siteName').value}`,
     date: new Date(),
   };
 
@@ -213,15 +217,11 @@ function savePassword() {
   historyArray.push(passwordData);
   let jsonArray = JSON.stringify(historyArray);
   localStorage.setItem('history', jsonArray);
+}
 
-  for (let i of historyArray) {
-    let historyInfo = document.createElement('div');
-    historyInfo.innerHTML = `${i.password} : ${i.siteName} : ${new Date(
-      i.date
-    )}`;
-    let div = document.getElementById('passwordHistory');
-    console.log(div.innerHTML);
-    div.append(historyInfo);
-    console.log(i.password + ' : ' + i.siteName + ' : ' + new Date(i.date));
-  }
+function changeSavePasswordButton() {
+  let button1 = document.querySelector('.hide');
+  button1.classList.add('d-none');
+  let button2 = document.querySelector('.display');
+  button2.classList.remove('d-none');
 }

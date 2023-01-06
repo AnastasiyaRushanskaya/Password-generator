@@ -1,0 +1,26 @@
+{
+  "name": "password-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnastasiyaRushanskaya/Password-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnastasiyaRushanskaya/Password-generator/issues"
+  },
+  "homepage": "https://github.com/AnastasiyaRushanskaya/Password-generator#readme",
+  "devDependencies": {
+    "laravel-mix": "^6.0.49"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
+}
